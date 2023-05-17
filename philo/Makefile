@@ -6,7 +6,7 @@
 #    By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/16 11:36:32 by yloutfi           #+#    #+#              #
-#    Updated: 2023/05/16 16:11:58 by yloutfi          ###   ########.fr        #
+#    Updated: 2023/05/17 11:34:05 by yloutfi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = philo
 CFLAGS = -Wall -Wextra -Werror 
 CC = cc
 
-SRCS = philo.c ft_split.c parsing_functions.c libft_functions.c
+SRCS = philo.c ft_split.c parsing_functions.c libft_functions.c init.c
 
 OBJS = $(SRCS:.c=.o)
 

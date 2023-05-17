@@ -6,18 +6,19 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:31:16 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/16 16:37:25 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/17 14:27:07 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_error(void)
+int	ft_error(char *message)
 {
 	write(1, "\033[1;31m", ft_strlen("\033[1;31m"));
-	write(1, "Error : invalid argument\n", 25);
+	while (*message)
+		write(1, message++, 1);
 	write(1, "\033[1;00m", ft_strlen("\033[1;00m"));
-	exit(1);
+	return (1);
 }
 
 int	check_args(char **args, int nbr)
@@ -56,13 +57,16 @@ int	check_is_int(char **args, int nbr)
 	return (1);
 }
 
-void	is_valid_args(char **args, int ac)
+int	is_valid_args(char **args, int ac)
 {
+	int	status;
+
+	status = 0;
 	if (ac > 4 || ac < 3)
-		ft_error();
-	if (!check_args(args, ac))
-		ft_error();
-	if (!check_is_int(args, ac))
-		ft_error();
-	return ;
+		status = ft_error("Error: number of arguments\n");
+	if (!check_args(args, ac) && !status)
+		status = ft_error("Error: invalid arguments\n");
+	if (!check_is_int(args, ac) && !status)
+		status = ft_error("Error: arguments must be >0 and <INT_MAX\n");
+	return (status);
 }
