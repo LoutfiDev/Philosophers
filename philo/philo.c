@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:39:14 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/18 12:13:09 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/18 12:17:08 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_free(t_data *data, char **args, int ac)
 	return (1);
 }
 
-void	*routine(char *data)
+void	*routine(t_data *data)
 {
 	(void)data;
 	return (NULL);

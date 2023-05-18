@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:48:08 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/17 16:57:36 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/18 12:18:10 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ int			mutexes_init(t_data *data);
 int			threads_create(t_data *data);
 
 //philosophers routine
-void		*routine(char *data);
+void		*routine(t_data *data);
 
 #endif

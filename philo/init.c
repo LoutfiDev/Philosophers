@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:32:54 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/18 12:15:40 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/18 12:18:43 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,13 @@ int	mutexes_init(t_data *data)
 		}
 		i++;
 	}
+	// printf("%lld\n",data->nbr_philos);
+	// int nbr = 0;
+	// while (nbr < data->nbr_philos)
+	// {
+	// 	printf("%d\n",data->philos[nbr].philo_id);
+	// 	nbr++;
+	// }
 	return (0);
 }
 
@@ -84,14 +91,6 @@ int	threads_create(t_data *data)
 	int	error;
 
 	i = 1;
-	// char *str = NULL;
-	// printf("%lld\n",data->nbr_philos);
-	// int nbr = 0;
-	// while (nbr < data->nbr_philos)
-	// {
-	// 	printf("%d\n",data->philos[nbr].philo_id);
-	// 	nbr++;
-	// }
 	while (i <= data->nbr_philos)
 	{
 		error = pthread_create(&data->philosophers[i], NULL,
