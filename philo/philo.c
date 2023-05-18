@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:39:14 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/17 17:05:01 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/18 12:13:09 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ int	ft_free(t_data *data, char **args, int ac)
 	i = 0;
 	while (i < ac)
 		free(args[i++]);
-	free(args);
-	if (data->philosophers)
+	if (args)
+		free(args);
+	if (data && data->philosophers)
 		free(data->philosophers);
-	if (data->forks)
+	if (data && data->forks)
 		free(data->forks);
-	if (data->philos)
+	if (data && data->philos)
 		free(data->philos);
 	if (data)
 		free(data);
@@ -45,7 +46,7 @@ int	main(int ac, char **av)
 
 	str = ft_argsjoin(av, ac);
 	args = ft_split(str, &ac);
-	if (is_valid_args(args, ac - 1))
+	if (is_valid_args(args, ac))
 		return (ft_free(NULL, args, ac));
 	data = data_init(args, ac);
 	if (!data)

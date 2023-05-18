@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 12:04:42 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/16 15:52:09 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/18 11:46:18 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,29 @@ long long	ft_atoi(char *str)
 	return (res * sign);
 }
 
+int	null_args(char **args, int nbr)
+{
+	int	i;
+
+	i = 0;
+	if (nbr == 1)
+		return (ft_error("Error: invalid arguments\n"));
+	while (i < nbr)
+	{
+		if (!args[i] || !args[i][0] || args[i][0] == ' ')
+			return (ft_error("Error: invalid arguments\n"));
+		i++;
+	}
+	return (0);
+}
+
 char	*ft_argsjoin(char **args, int nbr)
 {
 	int		i;
 	int		j;
 	char	*res;
 
-	if (!args || !*args[1])
+	if (null_args(args, nbr))
 		return (0);
 	i = 1;
 	j = 0;
