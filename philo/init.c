@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:32:54 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/18 12:18:43 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/18 16:51:14 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_philo	*philo_init(char **args)
 	while (i < ft_atoi(args[0]))
 	{
 		philo[i].philo_id = i + 1;
-		philo[i].fork_id = i + 1;
 		philo[i].time_to_die = ft_atoi(args[1]);
 		philo[i].time_to_eat = ft_atoi(args[2]);
 		philo[i].time_to_sleep = ft_atoi(args[3]);
@@ -64,24 +63,14 @@ int	mutexes_init(t_data *data)
 	int	i;
 	int	error;
 
-	i = 1;
-	while (i <= data->nbr_philos)
+	i = 0;
+	while (i < data->nbr_philos)
 	{
 		error = pthread_mutex_init(&data->forks[i], NULL);
 		if (error == -1)
-		{
-			ft_error("Failed to initialize the mutexes\n");
-			return (1);
-		}
+			return (ft_error("Failed to initialize the mutexes\n"));
 		i++;
 	}
-	// printf("%lld\n",data->nbr_philos);
-	// int nbr = 0;
-	// while (nbr < data->nbr_philos)
-	// {
-	// 	printf("%d\n",data->philos[nbr].philo_id);
-	// 	nbr++;
-	// }
 	return (0);
 }
 
@@ -90,16 +79,13 @@ int	threads_create(t_data *data)
 	int	i;
 	int	error;
 
-	i = 1;
-	while (i <= data->nbr_philos)
+	i = 0;
+	while (i < data->nbr_philos)
 	{
 		error = pthread_create(&data->philosophers[i], NULL,
 				(void *)routine, (t_data *)data);
 		if (error == -1)
-		{
-			ft_error("Error in thread creation.\n");
-			return (1);
-		}
+			return (ft_error("Error in thread creation.\n"));
 		i++;
 	}
 	return (0);

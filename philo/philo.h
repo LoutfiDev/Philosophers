@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:48:08 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/18 12:18:10 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/18 16:51:19 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 typedef struct s_philo
 {
 	int	philo_id;
-	int	fork_id;
 	int	time_to_eat;
 	int	time_to_sleep;
 	int	time_to_die;
