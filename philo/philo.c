@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:39:14 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/18 16:27:13 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/19 16:54:34 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ int	destroy_mutexes(t_data *data)
 	return (0);
 }
 
-void	*routine(t_data *data)
+void	*routine(t_philo *philo)
 {
-	(void)data;
+	(void)philo;
 	return (NULL);
 }
 
@@ -66,7 +66,7 @@ int	main(int ac, char **av)
 	args = ft_split(str, &ac);
 	if (is_valid_args(args, ac))
 		return (ft_free(NULL, args, ac, 1));
-	data = data_init(args, ac);
+	data = data_init(args);
 	if (!data)
 		return (ft_free(data, args, ac, 1));
 	if (mutexes_init(data) || threads_create(data))
