@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:48:08 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/19 16:50:27 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/24 14:18:11 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,16 @@
 typedef struct s_philo
 {
 	int				philo_id;
-	pthread_mutex_t	right_fork;
-	pthread_mutex_t	left_fork;
+	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*t_message;
+	unsigned long 	*timestamp;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				time_to_die;
 	int				max_eat_times;
+	int				death_state;
+	int				full_state;
 }	t_philo;
 
 typedef struct s_data
@@ -35,7 +39,9 @@ typedef struct s_data
 	long long		nbr_philos;
 	pthread_t		*philosophers;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	*messages;
 	t_philo			*philos;
+	unsigned long 	*time;
 }	t_data;
 
 //parsing function
@@ -54,6 +60,8 @@ int			mutexes_init(t_data *data);
 int			threads_create(t_data *data);
 
 //philosophers routine
-void		*routine(t_philo *data);
+void			*routine(t_philo *data);
+void			ft_print(t_philo *philo, char *message);
+unsigned long	get_time(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:39:14 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/19 16:54:34 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/24 11:58:50 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,36 @@ int	destroy_mutexes(t_data *data)
 	return (0);
 }
 
-void	*routine(t_philo *philo)
+int	check_death(t_data *data)
 {
-	(void)philo;
-	return (NULL);
+	int	i;
+
+	i = 0;
+	while (i < data->nbr_philos)
+	{
+		if (data->philos[i].death_state)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	check_full(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < data->nbr_philos)
+	{
+		if (data->philos[i].full_state)
+			j++;
+		i++;
+	}
+	if (j == i - 1)
+		return (1);
+	return (0);
 }
 
 int	main(int ac, char **av)
@@ -71,7 +97,9 @@ int	main(int ac, char **av)
 		return (ft_free(data, args, ac, 1));
 	if (mutexes_init(data) || threads_create(data))
 		return (ft_free(data, args, ac, 1));
-	// while(routine);
+	while (1)
+		if (check_death(data) || check_full(data))
+			break ;
 	if (destroy_mutexes(data))
 		return (ft_free(data, args, ac, 1));
 	ft_free(data, args, ac, 0);

@@ -1,0 +1,40 @@
+Philosopher 1 has taken his right fork in 0
+Philosopher 1 has taken his left fork in 0
+Philosopher 1 is eating in 0
+Philosopher 3 has taken his right fork in 1
+Philosopher 3 has taken his left fork in 1
+Philosopher 3 is eating in 1
+Philosopher 1 is sleeping in 101
+Philosopher 2 has taken his right fork in 101
+Philosopher 3 is sleeping in 105
+Philosopher 2 has taken his left fork in 105
+Philosopher 2 is eating in 105
+Philosopher 4 has taken his right fork in 105
+Philosopher 4 has taken his left fork in 105
+Philosopher 4 is eating in 105
+Philosopher 1 is thinking in 202
+Philosopher 3 is thinking in 206
+Philosopher 4 is sleeping in 206
+Philosopher 2 is sleeping in 206
+Philosopher 1 has taken his right fork in 206
+Philosopher 1 has taken his left fork in 206
+Philosopher 1 is eating in 206
+Philosopher 3 has taken his right fork in 206
+Philosopher 3 has taken his left fork in 206
+Philosopher 3 is eating in 206
+Philosopher 4 is thinking in 310
+Philosopher 2 is thinking in 310
+Philosopher 3 is sleeping in 310
+Philosopher 1 is sleeping in 310
+Philosopher 4 has taken his right fork in 310
+Philosopher 4 has taken his left fork in 310
+Philosopher 4 is eating in 310
+Philosopher 2 has taken his right fork in 310
+Philosopher 2 has taken his left fork in 310
+Philosopher 2 is eating in 310
+Philosopher 3 is thinking in 411
+Philosopher 1 is thinking in 411
+Philosopher 2 is sleeping in 411
+Philosopher 4 is sleeping in 411
+Philosopher 2 is thinking in 511
+Philosopher 4 is thinking in 511
