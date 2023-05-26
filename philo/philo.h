@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:48:08 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/24 14:18:11 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/25 16:48:14 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ typedef struct s_philo
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*t_message;
-	unsigned long 	*timestamp;
+	unsigned long	*timestamp;
+	unsigned long	last_meal_time;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				time_to_die;
 	int				max_eat_times;
-	int				death_state;
 	int				full_state;
+	int				death_state;
 }	t_philo;
 
 typedef struct s_data
@@ -41,23 +42,23 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*messages;
 	t_philo			*philos;
-	unsigned long 	*time;
+	unsigned long	*time;
 }	t_data;
 
 //parsing function
-int			ft_strlen(char *str);
-int			ft_strncmp(const char *s1, const char *s2, int n);
-long long	ft_atoi(char *str);
-char		**ft_split(char *str, int *ac);
-char		*ft_argsjoin(char **args, int nbr);
-int			is_valid_args(char **args, int ac);
-int			ft_error(char *message);
+int				ft_strlen(char *str);
+int				ft_strncmp(const char *s1, const char *s2, int n);
+long long		ft_atoi(char *str);
+char			**ft_split(char *str, int *ac);
+char			*ft_argsjoin(char **args, int nbr);
+int				is_valid_args(char **args, int ac);
+int				ft_error(char *message);
 
 //initiallize functions
-t_philo		*philo_init(char **args, t_data *data);
-t_data		*data_init(char **args);
-int			mutexes_init(t_data *data);
-int			threads_create(t_data *data);
+t_philo			*philo_init(char **args, t_data *data);
+t_data			*data_init(char **args);
+int				mutexes_init(t_data *data);
+int				threads_create(t_data *data);
 
 //philosophers routine
 void			*routine(t_philo *data);

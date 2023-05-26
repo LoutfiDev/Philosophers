@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:32:54 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/24 14:21:58 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/26 12:05:22 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,20 @@ t_philo	*philo_init(char **args, t_data *data)
 	{
 		philo[i].philo_id = i + 1;
 		philo[i].right_fork = &data->forks[i];
-		philo[i].left_fork = &data->forks[(i + 1) % data->nbr_philos];
+		if (ft_atoi(args[0]) > 1)
+			philo[i].left_fork = &data->forks[(i + 1) % data->nbr_philos];
 		philo[i].t_message = data->messages;
+		//need to move time_to_die to data struct
 		philo[i].time_to_die = ft_atoi(args[1]);
 		philo[i].time_to_eat = ft_atoi(args[2]);
 		philo[i].time_to_sleep = ft_atoi(args[3]);
+		philo[i].max_eat_times = -1;
 		if (args[4])
 			philo[i].max_eat_times = ft_atoi(args[4]);
-		else
-			philo[i].max_eat_times = -1;
-		philo[i].death_state = 0;
+		philo[i].last_meal_time = 0;
 		philo[i].full_state = 0;
-		philo[i].timestamp = data->time;
-		i++;
+		philo[i].death_state = 0;
+		philo[i++].timestamp = data->time;
 	}
 	return (philo);
 }
@@ -105,28 +106,4 @@ int	threads_create(t_data *data)
 		usleep(100);
 	}
 	return (0);
-}
-
-void	*routine(t_philo *philo)
-{
-	int	eat;
-
-	eat =  0;
-	while (eat < philo->max_eat_times)
-	{
-		pthread_mutex_lock(philo->right_fork);
-		ft_print(philo,"has taken his right fork");
-		pthread_mutex_lock(philo->left_fork);
-		ft_print(philo,"has taken his left fork");
-		ft_print(philo,"is eating");
-		usleep(1000 * philo->time_to_eat);
-		eat++;
-		pthread_mutex_unlock(philo->right_fork);
-		pthread_mutex_unlock(philo->left_fork);
-		ft_print(philo,"is sleeping");
-		usleep(1000 * philo->time_to_sleep);
-		ft_print(philo,"is thinking");
-	}
-	philo->full_state = 1;
-	return (NULL);
 }

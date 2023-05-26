@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:31:16 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/24 14:18:44 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/26 11:32:11 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,6 @@ int	ft_error(char *message)
 		write(1, message++, 1);
 	write(1, "\033[1;00m", ft_strlen("\033[1;00m"));
 	return (1);
-}
-
-unsigned long	get_time(void)
-{
-	struct timeval	current_time;
-
-	gettimeofday(&current_time, NULL);
-	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
-}
-
-void	ft_print(t_philo *philo, char *message)
-{
-	pthread_mutex_lock(philo->t_message);
-	printf("Philosopher %d %s in %ld\n", philo->philo_id, message, get_time() - *philo->timestamp);
-	if (!philo->death_state)
-		pthread_mutex_unlock(philo->t_message);
 }
 
 int	check_args(char **args, int nbr)
@@ -88,5 +72,7 @@ int	is_valid_args(char **args, int ac)
 		status = check_args(args, ac);
 	if (!status)
 		status = check_is_int(args, ac);
+	// if (!status && ft_atoi(args[0]) == 1)
+	// 	status = ft_error("Philosopher 1 died in 0\n");
 	return (status);
 }

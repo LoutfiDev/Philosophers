@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:39:14 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/24 11:58:50 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/26 11:46:06 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,20 @@ int	destroy_mutexes(t_data *data)
 
 int	check_death(t_data *data)
 {
-	int	i;
+	int				i;
+	unsigned long	current_time;
 
 	i = 0;
 	while (i < data->nbr_philos)
 	{
-		if (data->philos[i].death_state)
+		current_time = get_time() - data->philos[i].last_meal_time;
+		if ((current_time > (unsigned long)data->philos[i].time_to_die)
+			&& data->philos[i].last_meal_time)
+		{
+			data->philos[i].death_state = 1;
+			ft_print(&data->philos[i], "died");
 			return (1);
+		}
 		i++;
 	}
 	return (0);
