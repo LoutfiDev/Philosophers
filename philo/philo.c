@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:39:14 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/26 11:46:06 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/26 15:56:15 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	check_death(t_data *data)
 	i = 0;
 	while (i < data->nbr_philos)
 	{
-		current_time = get_time() - data->philos[i].last_meal_time;
-		if ((current_time > (unsigned long)data->philos[i].time_to_die)
-			&& data->philos[i].last_meal_time)
+		current_time = get_time();
+		if (current_time > data->philos[i].last_meal_time
+			+ (unsigned long)data->death_time)
 		{
 			data->philos[i].death_state = 1;
 			ft_print(&data->philos[i], "died");
@@ -84,7 +84,7 @@ int	check_full(t_data *data)
 			j++;
 		i++;
 	}
-	if (j == i - 1)
+	if (j == i - 1 && i > 1)
 		return (1);
 	return (0);
 }

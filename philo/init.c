@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:32:54 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/26 12:05:22 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/26 15:52:32 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,14 @@ t_philo	*philo_init(char **args, t_data *data)
 	{
 		philo[i].philo_id = i + 1;
 		philo[i].right_fork = &data->forks[i];
-		if (ft_atoi(args[0]) > 1)
-			philo[i].left_fork = &data->forks[(i + 1) % data->nbr_philos];
+		philo[i].left_fork = &data->forks[(i + 1) % data->nbr_philos];
 		philo[i].t_message = data->messages;
-		//need to move time_to_die to data struct
-		philo[i].time_to_die = ft_atoi(args[1]);
 		philo[i].time_to_eat = ft_atoi(args[2]);
 		philo[i].time_to_sleep = ft_atoi(args[3]);
 		philo[i].max_eat_times = -1;
 		if (args[4])
 			philo[i].max_eat_times = ft_atoi(args[4]);
-		philo[i].last_meal_time = 0;
+		philo[i].last_meal_time = get_time();
 		philo[i].full_state = 0;
 		philo[i].death_state = 0;
 		philo[i++].timestamp = data->time;
@@ -67,6 +64,7 @@ t_data	*data_init(char **args)
 	data->philos = philo_init(args, data);
 	if (!data->philos)
 		return (NULL);
+	data->death_time = ft_atoi(args[1]);
 	return (data);
 }
 

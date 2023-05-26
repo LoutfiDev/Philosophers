@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:48:34 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/26 12:03:07 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/26 15:48:47 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,14 @@ void	*routine(t_philo *philo)
 	{
 		pthread_mutex_lock(philo->right_fork);
 		ft_print(philo, "has taken his right fork");
-		if (philo->left_fork)
-			pthread_mutex_lock(philo->left_fork);
+		pthread_mutex_lock(philo->left_fork);
 		ft_print(philo, "has taken his left fork");
 		ft_print(philo, "is eating");
 		ft_sleep((unsigned long)(philo->time_to_eat));
 		philo->last_meal_time = get_time();
 		eat++;
-		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(philo->right_fork);
 		if (eat == philo->max_eat_times)
 		{
 			philo->full_state = 1;

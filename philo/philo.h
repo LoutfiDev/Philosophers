@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:48:08 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/25 16:48:14 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/26 14:54:02 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_philo
 	unsigned long	last_meal_time;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				time_to_die;
 	int				max_eat_times;
 	int				full_state;
 	int				death_state;
@@ -42,6 +41,7 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*messages;
 	t_philo			*philos;
+	int				death_time;
 	unsigned long	*time;
 }	t_data;
 

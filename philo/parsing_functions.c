@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:31:16 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/26 11:32:11 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/26 15:56:49 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,5 @@ int	is_valid_args(char **args, int ac)
 		status = check_args(args, ac);
 	if (!status)
 		status = check_is_int(args, ac);
-	// if (!status && ft_atoi(args[0]) == 1)
-	// 	status = ft_error("Philosopher 1 died in 0\n");
 	return (status);
 }
