@@ -6,13 +6,13 @@
 #    By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/16 11:36:32 by yloutfi           #+#    #+#              #
-#    Updated: 2023/05/28 15:02:48 by yloutfi          ###   ########.fr        #
+#    Updated: 2023/05/28 15:32:30 by yloutfi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = philo
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g3
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=thread -g3
 CC = cc
 
 SRCS = philo.c ft_split.c parsing_functions.c libft_functions.c init.c	\
