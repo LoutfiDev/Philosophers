@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:39:14 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/28 15:34:17 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/28 16:36:59 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_free(t_data *data, char **args, int ac, int status)
 	if (data && data->philos)
 		free(data->philos);
 	if (data && data->time)
-		free(data->philos);
+		free(data->time);
 	if (data)
 		free(data);
 	if (status)
@@ -68,15 +68,18 @@ int	check_death(t_data *data)
 	int				i;
 	unsigned long	current_time;
 	unsigned long	last_time;
+	unsigned long	full_state;
 
 	i = 0;
 	while (i < data->nbr_philos)
 	{
 		pthread_mutex_lock(data->philos[i].t_eat);
 		last_time = data->philos[i].last_meal_time;
+		full_state = data->philos[i].full_state;
 		pthread_mutex_unlock(data->philos[i].t_eat);
 		current_time = get_time();
-		if (current_time > last_time + (unsigned long)data->death_time)
+		if (current_time > last_time + (unsigned long)data->death_time
+			&& !full_state)
 		{
 			pthread_mutex_lock(data->philos[i].t_message);
 			printf("Philosopher %d %s in %ld\n", data->philos[i].philo_id,
@@ -126,7 +129,7 @@ int	main(int ac, char **av)
 	if (mutexes_init(data) || threads_create(data))
 		return (ft_free(data, args, ac, 1));
 	while (1)
-		if (check_death(data) || check_full(data))
+		if (check_full(data) || check_death(data))
 			break ;
 	if (destroy_mutexes(data))
 		return (ft_free(data, args, ac, 1));
