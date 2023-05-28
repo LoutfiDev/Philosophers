@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:39:14 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/26 15:56:15 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/28 15:12:25 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,13 @@ int	ft_free(t_data *data, char **args, int ac, int status)
 		free(data->philosophers);
 	if (data && data->forks)
 		free(data->forks);
+	if (data && data->messages)
+		free(data->forks);
+	if (data && data->eat)
+		free(data->forks);
 	if (data && data->philos)
+		free(data->philos);
+	if (data && data->time)
 		free(data->philos);
 	if (data)
 		free(data);
@@ -43,10 +49,17 @@ int	destroy_mutexes(t_data *data)
 	error = 0;
 	while (i < data->nbr_philos)
 	{
-		error = pthread_mutex_destroy(&data->forks[i++]);
+		error = pthread_mutex_destroy(&data->forks[i]);
 		if (error == -1)
 			return (ft_error("Failed to destroy the mutexes\n"));
+		error = pthread_mutex_destroy(&data->eat[i]);
+		if (error == -1)
+			return (ft_error("Failed to destroy the mutexes\n"));
+		i++;
 	}
+	error = pthread_mutex_destroy(data->messages);
+	if (error == -1)
+		return (ft_error("Failed to destroy the mutexes\n"));
 	return (0);
 }
 
@@ -54,16 +67,20 @@ int	check_death(t_data *data)
 {
 	int				i;
 	unsigned long	current_time;
+	unsigned long	last_time;
 
 	i = 0;
 	while (i < data->nbr_philos)
 	{
+		pthread_mutex_lock(data->philos[i].t_eat);
+		last_time = data->philos[i].last_meal_time;
+		pthread_mutex_unlock(data->philos[i].t_eat);
 		current_time = get_time();
-		if (current_time > data->philos[i].last_meal_time
-			+ (unsigned long)data->death_time)
+		if (current_time > last_time + (unsigned long)data->death_time)
 		{
-			data->philos[i].death_state = 1;
-			ft_print(&data->philos[i], "died");
+			pthread_mutex_lock(data->philos[i].t_message);
+			printf("Philosopher %d %s in %ld\n", data->philos[i].philo_id,
+				"died", get_time() - *data->philos[i].timestamp);
 			return (1);
 		}
 		i++;
@@ -75,12 +92,16 @@ int	check_full(t_data *data)
 {
 	int	i;
 	int	j;
+	int	full_state;
 
 	i = 0;
 	j = 0;
 	while (i < data->nbr_philos)
 	{
-		if (data->philos[i].full_state)
+		pthread_mutex_lock(data->philos[i].t_eat);
+		full_state = data->philos[i].full_state;
+		pthread_mutex_unlock(data->philos[i].t_eat);
+		if (full_state)
 			j++;
 		i++;
 	}
