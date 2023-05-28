@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:39:14 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/28 15:12:25 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/28 15:34:17 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	ft_free(t_data *data, char **args, int ac, int status)
 	if (data && data->forks)
 		free(data->forks);
 	if (data && data->messages)
-		free(data->forks);
+		free(data->messages);
 	if (data && data->eat)
-		free(data->forks);
+		free(data->eat);
 	if (data && data->philos)
 		free(data->philos);
 	if (data && data->time)
