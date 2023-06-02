@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:48:08 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/28 15:00:22 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/31 17:00:24 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,7 @@ int				threads_create(t_data *data);
 void			*routine(t_philo *data);
 void			ft_print(t_philo *philo, char *message);
 unsigned long	get_time(void);
+void			ft_stop(t_data *data);
+void			ft_sleep(unsigned long time);
 
 #endif

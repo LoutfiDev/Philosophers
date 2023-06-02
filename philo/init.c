@@ -6,11 +6,26 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:32:54 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/28 15:03:58 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/31 16:59:09 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	ft_stop(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->nbr_philos)
+	{
+		pthread_mutex_lock(data->philos[i].t_eat);
+		data->philos[i].death_state = 1;
+		pthread_mutex_unlock(data->philos[i].t_eat);
+		i++;
+	}
+	return ;
+}
 
 t_philo	*philo_init(char **args, t_data *data)
 {

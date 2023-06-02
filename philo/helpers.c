@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:48:34 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/31 10:56:32 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/06/01 19:50:35 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,19 @@ void	*routine(t_philo *philo)
 	eat = 0;
 	while (1)
 	{
-		if (philo->max_eat_times != -1 && eat == philo->max_eat_times)
-			break ;
+		pthread_mutex_lock(philo->t_eat);
+		if (philo->death_state)
+			return (NULL);
+		if (eat == philo->max_eat_times)
+		{
+			philo->full_state = 1;
+			return (NULL);
+		}
+		pthread_mutex_unlock(philo->t_eat);
 		ft_eat(philo);
 		eat++;
 		ft_print(philo, "is sleeping");
 		ft_sleep((unsigned long)(philo->time_to_sleep));
 		ft_print(philo, "is thinking");
 	}
-	pthread_mutex_lock(philo->t_eat);
-	philo->full_state = 1;
-	pthread_mutex_unlock(philo->t_eat);
-	return (NULL);
 }

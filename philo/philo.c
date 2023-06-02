@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:39:14 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/28 16:36:59 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/05/31 17:07:24 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,8 @@ int	main(int ac, char **av)
 	while (1)
 		if (check_full(data) || check_death(data))
 			break ;
+	ft_stop(data);
+	ft_sleep(100);
 	if (destroy_mutexes(data))
 		return (ft_free(data, args, ac, 1));
 	ft_free(data, args, ac, 0);
