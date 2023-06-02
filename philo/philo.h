@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:48:08 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/31 17:00:24 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/06/02 15:28:20 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ typedef struct s_philo
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*t_message;
-	pthread_mutex_t	*t_eat;
+	pthread_mutex_t	*t_death;
+	pthread_mutex_t	*t_full;
 	unsigned long	*timestamp;
 	unsigned long	last_meal_time;
 	int				time_to_eat;
@@ -41,7 +42,8 @@ typedef struct s_data
 	pthread_t		*philosophers;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*messages;
-	pthread_mutex_t	*eat;
+	pthread_mutex_t	*death;
+	pthread_mutex_t	*full;
 	t_philo			*philos;
 	int				death_time;
 	unsigned long	*time;

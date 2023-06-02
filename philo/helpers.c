@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:48:34 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/06/01 19:50:35 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/06/02 15:33:00 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	ft_eat(t_philo *philo)
 	pthread_mutex_lock(philo->left_fork);
 	ft_print(philo, "has taken his left fork");
 	ft_print(philo, "is eating");
-	pthread_mutex_lock(philo->t_eat);
+	pthread_mutex_lock(philo->t_death);
 	philo->last_meal_time = get_time();
-	pthread_mutex_unlock(philo->t_eat);
+	pthread_mutex_unlock(philo->t_death);
 	ft_sleep((unsigned long)(philo->time_to_eat));
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
@@ -64,15 +64,17 @@ void	*routine(t_philo *philo)
 	eat = 0;
 	while (1)
 	{
-		pthread_mutex_lock(philo->t_eat);
+		pthread_mutex_lock(philo->t_death);
 		if (philo->death_state)
 			return (NULL);
+		pthread_mutex_unlock(philo->t_death);
 		if (eat == philo->max_eat_times)
 		{
+			pthread_mutex_lock(philo->t_full);
 			philo->full_state = 1;
+			pthread_mutex_unlock(philo->t_full);
 			return (NULL);
 		}
-		pthread_mutex_unlock(philo->t_eat);
 		ft_eat(philo);
 		eat++;
 		ft_print(philo, "is sleeping");

@@ -6,7 +6,7 @@
 /*   By: yloutfi <yloutfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:39:14 by yloutfi           #+#    #+#             */
-/*   Updated: 2023/05/31 17:07:24 by yloutfi          ###   ########.fr       */
+/*   Updated: 2023/06/02 16:03:00 by yloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 
 int	ft_free(t_data *data, char **args, int ac, int status)
 {
-	int	i;
-
-	i = 0;
-	while (i < ac)
-		free(args[i++]);
+	while (ac > 0)
+		free(args[--ac]);
 	if (args)
 		free(args);
 	if (data && data->philosophers)
@@ -27,8 +24,10 @@ int	ft_free(t_data *data, char **args, int ac, int status)
 		free(data->forks);
 	if (data && data->messages)
 		free(data->messages);
-	if (data && data->eat)
-		free(data->eat);
+	if (data && data->death)
+		free(data->death);
+	if (data && data->full)
+		free(data->full);
 	if (data && data->philos)
 		free(data->philos);
 	if (data && data->time)
@@ -52,7 +51,10 @@ int	destroy_mutexes(t_data *data)
 		error = pthread_mutex_destroy(&data->forks[i]);
 		if (error == -1)
 			return (ft_error("Failed to destroy the mutexes\n"));
-		error = pthread_mutex_destroy(&data->eat[i]);
+		error = pthread_mutex_destroy(&data->death[i]);
+		if (error == -1)
+			return (ft_error("Failed to destroy the mutexes\n"));
+		error = pthread_mutex_destroy(&data->full[i]);
 		if (error == -1)
 			return (ft_error("Failed to destroy the mutexes\n"));
 		i++;
@@ -66,19 +68,19 @@ int	destroy_mutexes(t_data *data)
 int	check_death(t_data *data)
 {
 	int				i;
-	unsigned long	current_time;
 	unsigned long	last_time;
 	unsigned long	full_state;
 
 	i = 0;
 	while (i < data->nbr_philos)
 	{
-		pthread_mutex_lock(data->philos[i].t_eat);
+		pthread_mutex_lock(data->philos[i].t_death);
 		last_time = data->philos[i].last_meal_time;
+		pthread_mutex_unlock(data->philos[i].t_death);
+		pthread_mutex_lock(data->philos[i].t_full);
 		full_state = data->philos[i].full_state;
-		pthread_mutex_unlock(data->philos[i].t_eat);
-		current_time = get_time();
-		if (current_time > last_time + (unsigned long)data->death_time
+		pthread_mutex_unlock(data->philos[i].t_full);
+		if (get_time() > last_time + (unsigned long)data->death_time
 			&& !full_state)
 		{
 			pthread_mutex_lock(data->philos[i].t_message);
@@ -101,9 +103,9 @@ int	check_full(t_data *data)
 	j = 0;
 	while (i < data->nbr_philos)
 	{
-		pthread_mutex_lock(data->philos[i].t_eat);
+		pthread_mutex_lock(data->philos[i].t_full);
 		full_state = data->philos[i].full_state;
-		pthread_mutex_unlock(data->philos[i].t_eat);
+		pthread_mutex_unlock(data->philos[i].t_full);
 		if (full_state)
 			j++;
 		i++;
